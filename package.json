@@ -1,0 +1,35 @@
+{
+  "name": "getfusioncss",
+  "version": "1.0.0",
+  "description": "A modern CSS, SCSS, and JavaScript framework.",
+  "main": "dist/js/fusion.js",
+  "style": "dist/css/fusion.css",
+  "sass": "src/scss/fusion.scss",
+  "unpkg": "dist/css/fusion.min.css",
+  "jsdelivr": "dist/css/fusion.min.css",
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "css",
+    "scss",
+    "js",
+    "framework",
+    "getfusioncss",
+    "fusion"
+  ],
+  "author": "Muhammad Shahid Iqbal",
+  "license": "MIT",
+  "homepage": "https://getfusioncss.github.io/getfusioncss",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getfusioncss/getfusioncss.git"
+  },
+  "bugs": {
+    "url": "https://github.com/getfusioncss/getfusioncss/issues"
+  }
+}
