@@ -1,0 +1,1142 @@
+// ========================================
+// FusionCSS v1.0.0
+// A modern, lightweight CSS framework
+// Licensed under MIT
+// ========================================
+
+// ========================================
+// 1. VARIABLES & CONFIGURATION
+// ========================================
+
+// Color System
+$primary: #3b82f6 !default;
+$primary-dark: #2563eb !default;
+$primary-light: #60a5fa !default;
+$primary-rgb: 59, 130, 246 !default;
+
+$secondary: #64748b !default;
+$secondary-dark: #475569 !default;
+$secondary-light: #94a3b8 !default;
+$secondary-rgb: 100, 116, 139 !default;
+
+$success: #10b981 !default;
+$success-dark: #059669 !default;
+$success-light: #34d399 !default;
+$success-rgb: 16, 185, 129 !default;
+
+$danger: #ef4444 !default;
+$danger-dark: #dc2626 !default;
+$danger-light: #f87171 !default;
+$danger-rgb: 239, 68, 68 !default;
+
+$warning: #f59e0b !default;
+$warning-dark: #d97706 !default;
+$warning-light: #fbbf24 !default;
+$warning-rgb: 245, 158, 11 !default;
+
+$info: #06b6d4 !default;
+$info-dark: #0891b2 !default;
+$info-light: #22d3ee !default;
+$info-rgb: 6, 182, 212 !default;
+
+$dark: #0f172a !default;
+$dark-rgb: 15, 23, 42 !default;
+$light: #f8fafc !default;
+$light-rgb: 248, 250, 252 !default;
+
+// Gray Scale
+$gray-50: #f9fafb !default;
+$gray-100: #f3f4f6 !default;
+$gray-200: #e5e7eb !default;
+$gray-300: #d1d5db !default;
+$gray-400: #9ca3af !default;
+$gray-500: #6b7280 !default;
+$gray-600: #4b5563 !default;
+$gray-700: #374151 !default;
+$gray-800: #1f2937 !default;
+$gray-900: #111827 !default;
+
+// Theme Colors
+$body-bg: #ffffff !default;
+$body-color: #1f2937 !default;
+$body-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif !default;
+$body-font-size: 1rem !default;
+$body-line-height: 1.5 !default;
+$body-font-weight: 400 !default;
+
+// Border
+$border-width: 1px !default;
+$border-style: solid !default;
+$border-color: #e5e7eb !default;
+$border-radius: 0.5rem !default;
+$border-radius-sm: 0.375rem !default;
+$border-radius-lg: 0.75rem !default;
+$border-radius-xl: 1rem !default;
+$border-radius-2xl: 1.5rem !default;
+$border-radius-full: 9999px !default;
+
+// Spacing
+$spacer: 1rem !default;
+$spacers: (
+    0: 0,
+    1: $spacer * 0.25,
+    2: $spacer * 0.5,
+    3: $spacer * 0.75,
+    4: $spacer,
+    5: $spacer * 1.25,
+    6: $spacer * 1.5,
+    8: $spacer * 2,
+    10: $spacer * 2.5,
+    12: $spacer * 3,
+    16: $spacer * 4,
+    20: $spacer * 5,
+    24: $spacer * 6
+) !default;
+
+// Shadows
+$shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05) !default;
+$shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1) !default;
+$shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !default;
+$shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1) !default;
+$shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) !default;
+$shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25) !default;
+$shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05) !default;
+
+// Transitions
+$transition-fast: 150ms ease !default;
+$transition-base: 250ms ease !default;
+$transition-slow: 350ms ease !default;
+
+// Breakpoints
+$breakpoints: (
+    'sm': 576px,
+    'md': 768px,
+    'lg': 992px,
+    'xl': 1200px,
+    'xxl': 1400px
+) !default;
+
+// Z-index
+$z-dropdown: 1000 !default;
+$z-sticky: 1020 !default;
+$z-fixed: 1030 !default;
+$z-modal-backdrop: 1040 !default;
+$z-modal: 1050 !default;
+$z-popover: 1060 !default;
+$z-tooltip: 1070 !default;
+$z-toast: 1080 !default;
+
+// ========================================
+// 2. MIXINS
+// ========================================
+
+// Media Query Mixin
+@mixin respond-to($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (min-width: map-get($breakpoints, $breakpoint)) {
+            @content;
+        }
+    }
+}
+
+// Transition Mixin
+@mixin transition($property: all, $duration: $transition-base) {
+    transition: $property $duration;
+}
+
+// Flex Center Mixin
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Shadow Mixin
+@mixin shadow($level: 'md') {
+    @if $level == 'sm' {
+        box-shadow: $shadow-sm;
+    } @else if $level == 'md' {
+        box-shadow: $shadow-md;
+    } @else if $level == 'lg' {
+        box-shadow: $shadow-lg;
+    } @else if $level == 'xl' {
+        box-shadow: $shadow-xl;
+    } @else {
+        box-shadow: $shadow;
+    }
+}
+
+// Gradient Mixin
+@mixin gradient($direction, $start, $end) {
+    background: linear-gradient($direction, $start, $end);
+}
+
+// ========================================
+// 3. RESET & BASE STYLES
+// ========================================
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: $body-font-family;
+    font-size: $body-font-size;
+    font-weight: $body-font-weight;
+    line-height: $body-line-height;
+    color: $body-color;
+    background-color: $body-bg;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// ========================================
+// 4. TYPOGRAPHY
+// ========================================
+
+// Headings
+h1, .h1 { font-size: 3rem; font-weight: 700; line-height: 1.2; margin-bottom: 1rem; }
+h2, .h2 { font-size: 2.25rem; font-weight: 700; line-height: 1.25; margin-bottom: 0.875rem; }
+h3, .h3 { font-size: 1.875rem; font-weight: 600; line-height: 1.3; margin-bottom: 0.75rem; }
+h4, .h4 { font-size: 1.5rem; font-weight: 600; line-height: 1.35; margin-bottom: 0.75rem; }
+h5, .h5 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; margin-bottom: 0.5rem; }
+h6, .h6 { font-size: 1.125rem; font-weight: 600; line-height: 1.45; margin-bottom: 0.5rem; }
+
+// Display Headings
+.display-1 { font-size: 5rem; font-weight: 700; line-height: 1.1; }
+.display-2 { font-size: 4rem; font-weight: 700; line-height: 1.1; }
+.display-3 { font-size: 3.5rem; font-weight: 600; line-height: 1.15; }
+.display-4 { font-size: 3rem; font-weight: 600; line-height: 1.2; }
+.display-5 { font-size: 2.5rem; font-weight: 500; line-height: 1.2; }
+.display-6 { font-size: 2rem; font-weight: 500; line-height: 1.25; }
+
+// Text Utilities
+.text-xs { font-size: 0.75rem; line-height: 1rem; }
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.text-base { font-size: 1rem; line-height: 1.5rem; }
+.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-2xl { font-size: 1.5rem; line-height: 2rem; }
+.text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+
+// Font Weights
+.font-thin { font-weight: 100; }
+.font-light { font-weight: 300; }
+.font-normal { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.font-extrabold { font-weight: 800; }
+
+// Text Align
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+// Text Transform
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }
+
+// Text Colors
+.text-primary { color: $primary; }
+.text-secondary { color: $secondary; }
+.text-success { color: $success; }
+.text-danger { color: $danger; }
+.text-warning { color: $warning; }
+.text-info { color: $info; }
+.text-dark { color: $dark; }
+.text-light { color: $light; }
+.text-muted { opacity: 0.7; }
+
+// Text Decoration
+.underline { text-decoration: underline; }
+.line-through { text-decoration: line-through; }
+.no-underline { text-decoration: none; }
+
+// Text Truncation
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+// ========================================
+// 5. CONTAINER & GRID SYSTEM
+// ========================================
+
+.container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@each $name, $breakpoint in $breakpoints {
+    @include respond-to($name) {
+        .container {
+            max-width: $breakpoint;
+        }
+    }
+}
+
+.container-fluid {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// Grid System
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+}
+
+.col {
+    flex: 1 0 0%;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+// Generate column classes
+@for $i from 1 through 12 {
+    .col-#{$i} {
+        flex: 0 0 calc(#{$i} / 12 * 100%);
+        max-width: calc(#{$i} / 12 * 100%);
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}
+
+// Responsive columns
+@each $name, $breakpoint in $breakpoints {
+    @include respond-to($name) {
+        @for $i from 1 through 12 {
+            .col-#{$name}-#{$i} {
+                flex: 0 0 calc(#{$i} / 12 * 100%);
+                max-width: calc(#{$i} / 12 * 100%);
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+        }
+    }
+}
+
+// ========================================
+// 6. FLEXBOX UTILITIES
+// ========================================
+
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.flex-row { flex-direction: row; }
+.flex-col { flex-direction: column; }
+.flex-row-reverse { flex-direction: row-reverse; }
+.flex-col-reverse { flex-direction: column-reverse; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+
+// Justify Content
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+.justify-evenly { justify-content: space-evenly; }
+
+// Align Items
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.items-center { align-items: center; }
+.items-baseline { align-items: baseline; }
+.items-stretch { align-items: stretch; }
+
+// Flex Grow & Shrink
+.flex-1 { flex: 1; }
+.flex-auto { flex: auto; }
+.flex-none { flex: none; }
+.grow { flex-grow: 1; }
+.grow-0 { flex-grow: 0; }
+.shrink { flex-shrink: 1; }
+.shrink-0 { flex-shrink: 0; }
+
+// ========================================
+// 7. GRID UTILITIES
+// ========================================
+
+.grid { display: grid; }
+.inline-grid { display: inline-grid; }
+
+@for $i from 1 through 12 {
+    .grid-cols-#{$i} {
+        grid-template-columns: repeat($i, minmax(0, 1fr));
+    }
+}
+
+// Responsive grid
+@each $name, $breakpoint in $breakpoints {
+    @include respond-to($name) {
+        @for $i from 1 through 12 {
+            .grid-cols-#{$name}-#{$i} {
+                grid-template-columns: repeat($i, minmax(0, 1fr));
+            }
+        }
+    }
+}
+
+// ========================================
+// 8. SPACING UTILITIES
+// ========================================
+
+// Margin
+@each $key, $value in $spacers {
+    .m-#{$key} { margin: $value; }
+    .mt-#{$key} { margin-top: $value; }
+    .mb-#{$key} { margin-bottom: $value; }
+    .ml-#{$key} { margin-left: $value; }
+    .mr-#{$key} { margin-right: $value; }
+    .mx-#{$key} {
+        margin-left: $value;
+        margin-right: $value;
+    }
+    .my-#{$key} {
+        margin-top: $value;
+        margin-bottom: $value;
+    }
+}
+
+.m-auto { margin: auto; }
+.mt-auto { margin-top: auto; }
+.mb-auto { margin-bottom: auto; }
+.ml-auto { margin-left: auto; }
+.mr-auto { margin-right: auto; }
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+.my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+// Padding
+@each $key, $value in $spacers {
+    .p-#{$key} { padding: $value; }
+    .pt-#{$key} { padding-top: $value; }
+    .pb-#{$key} { padding-bottom: $value; }
+    .pl-#{$key} { padding-left: $value; }
+    .pr-#{$key} { padding-right: $value; }
+    .px-#{$key} {
+        padding-left: $value;
+        padding-right: $value;
+    }
+    .py-#{$key} {
+        padding-top: $value;
+        padding-bottom: $value;
+    }
+}
+
+// Gap
+@each $key, $value in $spacers {
+    .gap-#{$key} { gap: $value; }
+}
+
+// ========================================
+// 9. BACKGROUNDS
+// ========================================
+
+.bg-primary { background-color: $primary; }
+.bg-secondary { background-color: $secondary; }
+.bg-success { background-color: $success; }
+.bg-danger { background-color: $danger; }
+.bg-warning { background-color: $warning; }
+.bg-info { background-color: $info; }
+.bg-dark { background-color: $dark; }
+.bg-light { background-color: $light; }
+.bg-white { background-color: #ffffff; }
+.bg-black { background-color: #000000; }
+.bg-transparent { background-color: transparent; }
+
+// Gray backgrounds
+@each $i in (50, 100, 200, 300, 400, 500, 600, 700, 800, 900) {
+    .bg-gray-#{$i} {
+        background-color: var(--fc-gray-#{$i});
+    }
+}
+
+// Gradients
+.bg-gradient-primary {
+    @include gradient(135deg, $primary, $primary-dark);
+}
+.bg-gradient-secondary {
+    @include gradient(135deg, $secondary, $secondary-dark);
+}
+.bg-gradient-success {
+    @include gradient(135deg, $success, $success-dark);
+}
+.bg-gradient-danger {
+    @include gradient(135deg, $danger, $danger-dark);
+}
+.bg-gradient-warning {
+    @include gradient(135deg, $warning, $warning-dark);
+}
+.bg-gradient-info {
+    @include gradient(135deg, $info, $info-dark);
+}
+
+// ========================================
+// 10. BUTTONS
+// ========================================
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+    @include transition(all);
+    
+    &:focus {
+        outline: none;
+        ring: 2px;
+    }
+    
+    &:disabled,
+    &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+// Button variants
+@each $color, $value in (
+    'primary': $primary,
+    'secondary': $secondary,
+    'success': $success,
+    'danger': $danger,
+    'warning': $warning,
+    'info': $info,
+    'dark': $dark,
+    'light': $light
+) {
+    .btn-#{$color} {
+        background-color: $value;
+        color: if($color == 'light', $dark, white);
+        
+        &:hover {
+            background-color: darken($value, 10%);
+            transform: translateY(-1px);
+            @include shadow(sm);
+        }
+    }
+    
+    .btn-outline-#{$color} {
+        border-color: $value;
+        color: $value;
+        background-color: transparent;
+        
+        &:hover {
+            background-color: $value;
+            color: white;
+        }
+    }
+}
+
+// Button sizes
+.btn-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    border-radius: $border-radius-sm;
+}
+
+.btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: $border-radius-lg;
+}
+
+.btn-xl {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    border-radius: $border-radius-xl;
+}
+
+.btn-block {
+    display: flex;
+    width: 100%;
+}
+
+.btn-icon {
+    padding: 0.5rem;
+    
+    &.btn-sm { padding: 0.25rem; }
+    &.btn-lg { padding: 0.75rem; }
+}
+
+// ========================================
+// 11. CARDS
+// ========================================
+
+.card {
+    background-color: $body-bg;
+    border: $border-width $border-style $border-color;
+    border-radius: $border-radius;
+    overflow: hidden;
+    @include transition(all);
+    
+    &:hover {
+        @include shadow(md);
+    }
+}
+
+.card-header {
+    padding: 1rem 1.25rem;
+    border-bottom: $border-width $border-style $border-color;
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.card-footer {
+    padding: 1rem 1.25rem;
+    border-top: $border-width $border-style $border-color;
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+    font-size: 0.875rem;
+    color: $secondary;
+    margin-bottom: 0.75rem;
+}
+
+.card-text {
+    color: $gray-600;
+    line-height: 1.5;
+}
+
+.card-img-top {
+    width: 100%;
+    object-fit: cover;
+}
+
+.card-hover {
+    @include transition(all);
+    
+    &:hover {
+        transform: translateY(-4px);
+        @include shadow(lg);
+    }
+}
+
+// ========================================
+// 12. ALERTS
+// ========================================
+
+.alert {
+    position: relative;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+}
+
+@each $color, $value in (
+    'primary': $primary,
+    'secondary': $secondary,
+    'success': $success,
+    'danger': $danger,
+    'warning': $warning,
+    'info': $info
+) {
+    .alert-#{$color} {
+        background-color: rgba($value, 0.1);
+        border-color: rgba($value, 0.2);
+        color: $value;
+    }
+}
+
+.alert-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.alert-dismissible {
+    padding-right: 3rem;
+}
+
+.alert-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.5;
+    
+    &:hover {
+        opacity: 1;
+    }
+}
+
+// ========================================
+// 13. BADGES
+// ========================================
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: $border-radius-full;
+}
+
+@each $color, $value in (
+    'primary': $primary,
+    'secondary': $secondary,
+    'success': $success,
+    'danger': $danger,
+    'warning': $warning,
+    'info': $info,
+    'dark': $dark,
+    'light': $light
+) {
+    .badge-#{$color} {
+        background-color: $value;
+        color: if($color == 'light', $dark, white);
+    }
+}
+
+.badge-pill {
+    border-radius: $border-radius-full;
+}
+
+// ========================================
+// 14. FORMS
+// ========================================
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $gray-700;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: $body-color;
+    background-color: $body-bg;
+    border: $border-width $border-style $border-color;
+    border-radius: $border-radius;
+    @include transition(all);
+    
+    &:focus {
+        outline: none;
+        border-color: $primary;
+        box-shadow: 0 0 0 3px rgba($primary-rgb, 0.1);
+    }
+    
+    &:disabled {
+        background-color: $gray-100;
+        cursor: not-allowed;
+    }
+}
+
+.form-control-lg {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: $border-radius-lg;
+}
+
+.form-control-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    border-radius: $border-radius-sm;
+}
+
+// Form Select
+.form-select {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 2rem 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: $body-color;
+    background-color: $body-bg;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    border: $border-width $border-style $border-color;
+    border-radius: $border-radius;
+    appearance: none;
+    
+    &:focus {
+        outline: none;
+        border-color: $primary;
+        box-shadow: 0 0 0 3px rgba($primary-rgb, 0.1);
+    }
+}
+
+// Form Check
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-check-input {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
+
+.form-check-label {
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+// Form Switch
+.form-switch {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.form-switch-input {
+    width: 2rem;
+    height: 1rem;
+    background-color: $gray-300;
+    border-radius: 1rem;
+    position: relative;
+    cursor: pointer;
+    @include transition(background-color);
+    appearance: none;
+    
+    &:checked {
+        background-color: $primary;
+    }
+    
+    &::before {
+        content: '';
+        position: absolute;
+        width: 0.875rem;
+        height: 0.875rem;
+        background-color: white;
+        border-radius: 50%;
+        top: 0.0625rem;
+        left: 0.0625rem;
+        @include transition(transform);
+    }
+    
+    &:checked::before {
+        transform: translateX(1rem);
+    }
+}
+
+// Validation
+.is-valid,
+.was-validated :valid {
+    border-color: $success;
+}
+
+.is-invalid,
+.was-validated :invalid {
+    border-color: $danger;
+}
+
+.valid-feedback,
+.invalid-feedback {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+}
+
+.valid-feedback {
+    color: $success;
+}
+
+.invalid-feedback {
+    color: $danger;
+}
+
+// ========================================
+// 15. TABLES
+// ========================================
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+    
+    th,
+    td {
+        padding: 0.75rem;
+        vertical-align: top;
+        border-top: $border-width $border-style $border-color;
+    }
+    
+    thead th {
+        vertical-align: bottom;
+        border-bottom: 2px solid $border-color;
+        background-color: $gray-50;
+        font-weight: 600;
+    }
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.table-bordered {
+    border: $border-width $border-style $border-color;
+    
+    th,
+    td {
+        border: $border-width $border-style $border-color;
+    }
+}
+
+// ========================================
+// 16. UTILITIES
+// ========================================
+
+// Display
+.block { display: block; }
+.inline-block { display: inline-block; }
+.inline { display: inline; }
+.hidden { display: none; }
+
+// Position
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.sticky { position: sticky; }
+.static { position: static; }
+
+// Z-index
+@for $i from 0 through 50 {
+    .z-#{$i} { z-index: $i; }
+}
+
+// Width
+.w-full { width: 100%; }
+.w-screen { width: 100vw; }
+.w-auto { width: auto; }
+.w-1\/2 { width: 50%; }
+.w-1\/3 { width: 33.333333%; }
+.w-2\/3 { width: 66.666667%; }
+.w-1\/4 { width: 25%; }
+.w-3\/4 { width: 75%; }
+
+// Height
+.h-full { height: 100%; }
+.h-screen { height: 100vh; }
+.h-auto { height: auto; }
+
+// Shadows
+.shadow-sm { box-shadow: $shadow-sm; }
+.shadow { box-shadow: $shadow; }
+.shadow-md { box-shadow: $shadow-md; }
+.shadow-lg { box-shadow: $shadow-lg; }
+.shadow-xl { box-shadow: $shadow-xl; }
+.shadow-none { box-shadow: none; }
+
+// Border Radius
+.rounded-none { border-radius: 0; }
+.rounded-sm { border-radius: $border-radius-sm; }
+.rounded { border-radius: $border-radius; }
+.rounded-lg { border-radius: $border-radius-lg; }
+.rounded-xl { border-radius: $border-radius-xl; }
+.rounded-full { border-radius: $border-radius-full; }
+
+// Opacity
+@for $i from 0 through 100 {
+    @if $i % 25 == 0 {
+        .opacity-#{$i} { opacity: $i / 100; }
+    }
+}
+
+// Overflow
+.overflow-auto { overflow: auto; }
+.overflow-hidden { overflow: hidden; }
+.overflow-visible { overflow: visible; }
+.overflow-scroll { overflow: scroll; }
+
+// Cursor
+.cursor-pointer { cursor: pointer; }
+.cursor-default { cursor: default; }
+.cursor-not-allowed { cursor: not-allowed; }
+
+// ========================================
+// 17. RESPONSIVE UTILITIES
+// ========================================
+
+@each $name, $breakpoint in $breakpoints {
+    @include respond-to($name) {
+        .#{$name}\:block { display: block; }
+        .#{$name}\:hidden { display: none; }
+        .#{$name}\:flex { display: flex; }
+        .#{$name}\:grid { display: grid; }
+        .#{$name}\:text-left { text-align: left; }
+        .#{$name}\:text-center { text-align: center; }
+        .#{$name}\:text-right { text-align: right; }
+    }
+}
+
+// ========================================
+// 18. DARK THEME
+// ========================================
+
+[data-theme="dark"] {
+    --fc-primary: #60a5fa;
+    --fc-primary-dark: #3b82f6;
+    --fc-secondary: #94a3b8;
+    --fc-body-bg: #0f172a;
+    --fc-body-color: #e2e8f0;
+    --fc-border-color: #1e293b;
+}
+
+// ========================================
+// 19. ANIMATIONS
+// ========================================
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .5; }
+}
+
+.animate-fade-in {
+    animation: fadeIn $transition-base;
+}
+
+.animate-slide-up {
+    animation: slideUp $transition-base;
+}
+
+.animate-slide-down {
+    animation: slideDown $transition-base;
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+// ========================================
+// 20. PRINT STYLES
+// ========================================
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .print-only {
+        display: block !important;
+    }
+    
+    .print-text-black {
+        color: black !important;
+    }
+}
