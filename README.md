@@ -27,6 +27,54 @@ Aap directly inline links ko copy karke apne project ki HTML boilerplate mein fr
 **CSS (Minified):**
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/getfusioncss@latest/dist/css/fusion.min.css">
+```
 
+**JS (Minified):**
 ```html
 <script src="https://cdn.jsdelivr.net/npm/getfusioncss@1.0.1/dist/js/fusion.min.js"></script>
+```
+## 📦 Installation
+
+### NPM
+NPM ke zariye install karein agar aap modern build tools (Webpack, Vite, waghera) istemal kar rahe hain:
+
+```bash
+npm install getfusioncss
+```
+**🛠️ Basic Usage Example**
+
+Yeh ek basic starter template hai jo GetFusionCSS ki utility classes aur component structure ko demonstrate karta hai:
+
+```html
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GetFusionCSS Starter</title>
+    
+    <link rel="stylesheet" href="[https://cdn.jsdelivr.net/npm/getfusioncss@latest/dist/css/fusion.min.css](https://cdn.jsdelivr.net/npm/getfusioncss@latest/dist/css/fusion.min.css)">
+</head>
+<body>
+    
+    <main class="container py-5">
+        <div class="card shadow-md">
+            <div class="card-body">
+                <h1 class="text-primary mb-3">Welcome to GetFusionCSS! 🚀</h1>
+                <p class="text-muted mb-4">
+                    A modern, hybrid CSS framework for rapid UI development.
+                </p>
+                
+                <div class="d-flex gap-3">
+                    <button class="btn btn-primary">Get Started</button>
+                    <button class="btn btn-outline-secondary">Documentation</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="[https://cdn.jsdelivr.net/npm/getfusioncss@latest/dist/js/fusion.min.js](https://cdn.jsdelivr.net/npm/getfusioncss@latest/dist/js/fusion.min.js)"></script>
+</body>
+</html>
+```
