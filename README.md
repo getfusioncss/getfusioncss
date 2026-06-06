@@ -26,4 +26,5 @@ Aap directly inline links ko copy karke apne project ki HTML boilerplate mein fr
 
 **CSS (Minified):**
 ```html
-<link rel="stylesheet" href="[https://cdn.jsdelivr.net/npm/getfusioncss@latest/dist/css/fusion.min.css](https://cdn.jsdelivr.net/npm/getfusioncss@latest/dist/css/fusion.min.css)">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/getfusioncss@latest/dist/css/fusion.min.css">
+<script src="https://cdn.jsdelivr.net/npm/getfusioncss@latest/dist/js/fusion.min.js"></script>
